@@ -14,13 +14,23 @@ public class GameController {
         Ladder ladder4 = new Ladder(5,3,8,6);
 
         Snake snake1 = new Snake(3,3,1,1);
-        Snake snake2 = new Snake(9,9,1,1);
+        Snake snake2 = new Snake(9,7,1,1);
         Snake snake3 = new Snake(7,9,2,1);
         Snake snake4 = new Snake(4,6,3,1);
 
         Player player1 = new Player("Vikas","1");
         Player player2 = new Player("Nilabjo","2");
+        ladders.add(ladder1);
+        ladders.add(ladder2);
+        ladders.add(ladder3);
+        ladders.add(ladder4);
 
+        snakes.add(snake1);
+        snakes.add(snake2);
+        snakes.add(snake3);
+        snakes.add(snake4);
+        players.add(player1);
+        players.add(player2);
         Board board = new Board();
         board.setLadderList(ladders);
         board.setSnakeList(snakes);
@@ -45,6 +55,24 @@ public class GameController {
                 if (newCol >= 10) {
                     newRow += newCol / 10;
                     newCol = newCol % 10;
+                }
+
+                // Check ladders
+                for (Ladder ladder : ladders) {
+                    if (ladder.startRow == newRow && ladder.startCol == newCol) {
+                        System.out.println("Climbed a ladder 🪜");
+                        newRow = ladder.endRow;
+                        newCol = ladder.endCol;
+                    }
+                }
+
+// Check snakes
+                for (Snake snake : snakes) {
+                    if (snake.startRow == newRow && snake.startCol == newCol) {
+                        System.out.println("Bitten by snake 🐍");
+                        newRow = snake.endRow;
+                        newCol = snake.endCol;
+                    }
                 }
 
                 int newPosition = newRow * 10 + newCol;
@@ -82,6 +110,24 @@ public class GameController {
                 if (newCol >= 10) {
                     newRow += newCol / 10;
                     newCol = newCol % 10;
+                }
+
+                // Check ladders
+                for (Ladder ladder : ladders) {
+                    if (ladder.startRow == newRow && ladder.startCol == newCol) {
+                        System.out.println("Climbed a ladder 🪜");
+                        newRow = ladder.endRow;
+                        newCol = ladder.endCol;
+                    }
+                }
+
+// Check snakes
+                for (Snake snake : snakes) {
+                    if (snake.startRow == newRow && snake.startCol == newCol) {
+                        System.out.println("Bitten by snake 🐍");
+                        newRow = snake.endRow;
+                        newCol = snake.endCol;
+                    }
                 }
 
                 int newPosition = newRow * 10 + newCol;

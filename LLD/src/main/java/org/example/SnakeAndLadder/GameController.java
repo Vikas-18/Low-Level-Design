@@ -27,71 +27,80 @@ public class GameController {
         board.setPlayerList(players);
 
         boolean player1Turn = true;
-        while(true)
-        {
-            if(player1Turn)
-            {
+
+        while (true) {
+
+            if (player1Turn) {
 
                 int number = player1.rollDice();
-                System.out.println("Player1 got " + number);
+                System.out.println(player1.name + " got " + number);
+
                 int currRow = player1.row;
                 int currCol = player1.col;
-                int position = 0;
-                if((currCol+number)%10!=0)
-                {
-                    currRow++;
-                    position = (currRow*10)+currCol+number;
-                    currCol = (currCol+number)%10;
-                    player1.setRow(currRow);
-                    player1.setCol(currCol);
-                }
-                else {
-                    position = (currRow*10)+currCol+number;
-                    currCol = (currCol+number)%10;
-                    player1.setRow(currRow);
-                    player1.setCol(currCol);
+
+                int newRow = currRow;
+                int newCol = currCol + number;
+
+                // Handle row crossing
+                if (newCol >= 10) {
+                    newRow += newCol / 10;
+                    newCol = newCol % 10;
                 }
 
-                System.out.println("Player 1 new position "+ position);
-                if(position==99)
-                {
-                    System.out.println("Player1 won");
-                    break;
+                int newPosition = newRow * 10 + newCol;
+
+                // Check bounds BEFORE updating player
+                if (newPosition > 99) {
+                    System.out.println("Out of bounds move for "+player1.name);
+                } else {
+                    player1.setRow(newRow);
+                    player1.setCol(newCol);
+
+                    System.out.println(player1.name+" new position " + newPosition);
+
+                    if (newPosition == 99) {
+                        System.out.println(player1.name +" won");
+                        break;
+                    }
                 }
-                if(number!=1 && number!=6)
-                {
+
+                if (number != 6) {
                     player1Turn = false;
                 }
-            }
-            else {
+
+            } else {
+
                 int number = player2.rollDice();
-                System.out.println("Player2 got " + number);
+                System.out.println(player2.name + " got " + number);
+
                 int currRow = player2.row;
                 int currCol = player2.col;
-                int position = 0;
-                if((currCol+number)%10!=0)
-                {
-                    currRow++;
-                    position = (currRow*10)+currCol+number;
-                    currCol = (currCol+number)%10;
-                    player2.setRow(currRow);
-                    player2.setCol(currCol);
-                }
-                else {
-                    position = (currRow*10)+currCol+number;
-                    currCol = (currCol+number)%10;
-                    player2.setRow(currRow);
-                    player2.setCol(currCol);
+
+                int newRow = currRow;
+                int newCol = currCol + number;
+
+                if (newCol >= 10) {
+                    newRow += newCol / 10;
+                    newCol = newCol % 10;
                 }
 
-                System.out.println("Player 2 new position "+ position);
-                if(position==99)
-                {
-                    System.out.println("Player2 won");
-                    break;
+                int newPosition = newRow * 10 + newCol;
+
+                if (newPosition > 99) {
+                    System.out.println("Out of bounds move for "+ player2.name);
+                } else {
+                    player2.setRow(newRow);
+                    player2.setCol(newCol);
+
+                    System.out.println(player2.name+" new position " + newPosition);
+
+                    if (newPosition == 99) {
+                        System.out.println(player2.name+" won");
+                        break;
+                    }
                 }
-                if(number!=1 && number!=6)
-                {
+
+                if (number != 6) {
                     player1Turn = true;
                 }
             }

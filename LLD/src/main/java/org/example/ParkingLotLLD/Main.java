@@ -23,7 +23,7 @@ public class Main {
         ParkingLot parkingLot = new ParkingLot(
                 floorList,
                 new FirstSpot(),
-                new VehicleAndFloorBasedPricing()  // dynamic pricing based on vehicle + floor
+                new HourlyPricing(20)  // dynamic pricing based on vehicle + floor
         );
 
         // Park a car
@@ -32,6 +32,7 @@ public class Main {
 
         // Unpark and pay via UPI
         if (ticket != null) {
+            parkingLot.unPark(ticket, new UPI());
             parkingLot.unPark(ticket, new UPI());
         }
     }
